@@ -2,27 +2,33 @@ package me.dio.primeiro_projeto.domian.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 
+import java.util.List;
 
 @Entity(name = "tb_user")
 public class UserModel {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
     private AccountModel account;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private List<FeatureModel> feature;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "card_id")
     private CardModel card;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<NewsModel>  news;
+    @JoinColumn(name = "user_id")
+    private List<NewsModel> news;
 
     public Long getId() {
         return id;
